@@ -46,13 +46,13 @@ export default function BeeChatbot() {
         
         {/* Navigation Buttons Overlay */}
         <nav className="absolute inset-0 flex justify-center items-center gap-6">
-          <a href="#" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
+          <a href="https://x.com/beeonbnb" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
             X
           </a>
-          <a href="#" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
+          <a href="https://t.me/BEE_CTO_BnB" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
             TG
           </a>
-          <a href="#" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
+          <a href="https://github.com/mhathegreat/beeonbsc" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
             GitHub
           </a>
           <a href="#" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">

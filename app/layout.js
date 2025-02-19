@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Bee on BSC",
-  description: "Bzzz! Your AI-powered Bee on BSC. What's buzzing?",
+  title: "Bee on BNB",
+  description: "Bzzz! Your AI-powered Bee on BNB. What's buzzing?",
 };
 
 export default function RootLayout({ children }) {
