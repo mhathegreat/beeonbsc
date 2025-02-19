@@ -38,18 +38,35 @@ export default function BeeChatbot() {
   }, [messages]);
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center text-gold p-4">
-      {/* Banner */}
-      <div className="w-full max-w-4xl mb-4">
-        <img src="/banner.png" alt="Bee on BSC Banner" className="w-full rounded-lg shadow-lg" />
+    <div className="h-screen w-full flex flex-col items-center justify-center text-gold p-4 relative bg-[url('/images/background.png')] bg-cover overflow-hidden">
+      
+      {/* Banner with Border and Buttons Overlay */}
+      <div className="relative w-full max-w-4xl mt-4 mb-2 border-4 border-yellow-600 rounded-lg shadow-lg bg-yellow-400 bg-opacity-90 p-4">
+        <img src="/banner.png" alt="Bee on BSC Banner" className="w-full rounded-lg" />
+        
+        {/* Navigation Buttons Overlay */}
+        <nav className="absolute inset-0 flex justify-center items-center gap-6">
+          <a href="#" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
+            X
+          </a>
+          <a href="#" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
+            TG
+          </a>
+          <a href="#" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
+            GitHub
+          </a>
+          <a href="#" className="px-6 py-3 bg-yellow-500 bg-opacity-80 text-black rounded-lg font-bold shadow-md hover:bg-opacity-100 transition-all text-center w-28 border-2 border-yellow-700">
+            Home
+          </a>
+        </nav>
       </div>
       
-      {/* Chatbox */}
-      <div className="h-[90vh] w-[90vw] max-w-[1000px] bg-opacity-0 backdrop-blur-lg rounded-lg shadow-xl p-6 flex flex-col">
-        <div className="flex-1 overflow-y-auto space-y-4 p-4">
+      {/* Chatbox with Honeycomb Theme */}
+      <div className="h-[80vh] w-full max-w-4xl bg-yellow-200 bg-opacity-90 backdrop-blur-lg rounded-lg shadow-xl p-6 flex flex-col border-4 border-yellow-600 overflow-hidden">
+        <div className="flex-1 overflow-y-auto space-y-4 p-4 scrollbar-thin scrollbar-thumb-yellow-600 w-full">
           {messages.map((msg, index) => (
             <div key={index} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-              <div className={`p-4 rounded-lg max-w-3xl text-white ${msg.role === "user" ? "bg-yellow-600 bg-opacity-80" : "bg-gold bg-opacity-80"}`}>
+              <div className={`p-4 rounded-2xl max-w-full text-black ${msg.role === "user" ? "bg-yellow-500 bg-opacity-90 shadow-md border-2 border-yellow-700" : "bg-yellow-400 bg-opacity-90 shadow-md border-2 border-yellow-800"}`}>
                 {msg.text}
               </div>
             </div>
@@ -58,31 +75,23 @@ export default function BeeChatbot() {
         </div>
 
         {/* Input Box */}
-        <div className="flex gap-4 p-4 bg-opacity-0 rounded-b-lg">
+        <div className="flex gap-4 p-4 bg-yellow-300 bg-opacity-80 rounded-b-lg border-t-2 border-yellow-600 w-full">
           <input
             ref={inputRef}
-            className="flex-1 p-3 bg-transparent border border-gold rounded-lg text-white outline-none placeholder-gold"
+            className="flex-1 p-3 bg-transparent border border-yellow-600 rounded-lg text-black outline-none placeholder-yellow-700"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Bzzz... Ask me anything!"
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           />
           <button
-            className="p-4 bg-gold rounded-full shadow-lg hover:scale-110"
+            className="p-4 bg-yellow-500 rounded-full shadow-lg hover:scale-110 border-2 border-yellow-700"
             onClick={sendMessage}
             disabled={loading}
           >
             <Send size={28} color="black" />
           </button>
         </div>
-      </div>
-
-      {/* Navigation */}
-      <div className="flex gap-6 mt-6">
-        <a href="#" className="px-6 py-2 bg-gold text-black rounded-lg font-bold shadow-md hover:bg-yellow-500 transition-all">X</a>
-        <a href="#" className="px-6 py-2 bg-gold text-black rounded-lg font-bold shadow-md hover:bg-yellow-500 transition-all">TG</a>
-        <a href="#" className="px-6 py-2 bg-gold text-black rounded-lg font-bold shadow-md hover:bg-yellow-500 transition-all">GitHub</a>
-        <a href="#" className="px-6 py-2 bg-gold text-black rounded-lg font-bold shadow-md hover:bg-yellow-500 transition-all">Home</a>
       </div>
     </div>
   );
