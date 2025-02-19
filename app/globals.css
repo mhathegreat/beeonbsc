@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #FFD700;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;700&display=swap');
+
+@keyframes buzzGlow {
+  0% { box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700; }
+  50% { box-shadow: 0 0 15px #FFD700, 0 0 25px #FFD700; }
+  100% { box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700; }
+}
+
+.chat-container {
+  animation: buzzGlow 1.5s infinite alternate;
+  border-radius: 12px;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('/images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Buzz animation for hover effects */
+@keyframes buzz {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(2px); }
+}
+
+.buzz:hover {
+  animation: buzz 0.2s infinite;
+}
+
+/* Chat messages */
+.user-message {
+  background: linear-gradient(135deg, #FFD700, #FFB400);
+  color: black;
+  text-align: right;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+  border: 1px solid rgba(255, 215, 0, 0.6);
+}
+
+.bot-message {
+  background: linear-gradient(135deg, #FFA500, #FFB400);
+  color: black;
+  text-align: left;
+  box-shadow: 0 0 8px rgba(255, 165, 0, 0.4);
+  border: 1px solid rgba(255, 165, 0, 0.6);
+}
+
+/* Navigation Bar */
+.navbar-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 0 0 5px #FFD700, 0 0 10px #FFA500;
+}
+
+/* Send Button */
+.send-button {
+  background: linear-gradient(135deg, #FFD700, #FFB400);
+  padding: 10px 14px;
+  border-radius: 50%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.send-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.7);
+}
