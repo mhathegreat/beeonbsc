@@ -38,18 +38,18 @@ export default function BeeChatbot() {
   }, [messages]);
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center bg-black text-gold p-4">
+    <div className="h-screen w-full flex flex-col items-center justify-center text-gold p-4">
       {/* Banner */}
       <div className="w-full max-w-4xl mb-4">
         <img src="/banner.png" alt="Bee on BSC Banner" className="w-full rounded-lg shadow-lg" />
       </div>
       
       {/* Chatbox */}
-      <div className="h-[70vh] w-full max-w-2xl bg-yellow-900 bg-opacity-90 rounded-lg shadow-xl p-4 flex flex-col">
-        <div className="flex-1 overflow-y-auto space-y-4 p-2">
+      <div className="h-[90vh] w-[90vw] max-w-[1000px] bg-opacity-0 backdrop-blur-lg rounded-lg shadow-xl p-6 flex flex-col">
+        <div className="flex-1 overflow-y-auto space-y-4 p-4">
           {messages.map((msg, index) => (
             <div key={index} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-              <div className={`p-3 rounded-lg max-w-xs text-white ${msg.role === "user" ? "bg-yellow-600" : "bg-gold"}`}>
+              <div className={`p-4 rounded-lg max-w-3xl text-white ${msg.role === "user" ? "bg-yellow-600 bg-opacity-80" : "bg-gold bg-opacity-80"}`}>
                 {msg.text}
               </div>
             </div>
@@ -58,31 +58,31 @@ export default function BeeChatbot() {
         </div>
 
         {/* Input Box */}
-        <div className="flex gap-2 p-2 bg-black bg-opacity-50 rounded-b-lg">
+        <div className="flex gap-4 p-4 bg-opacity-0 rounded-b-lg">
           <input
             ref={inputRef}
-            className="flex-1 p-2 bg-transparent border border-gold rounded-lg text-white outline-none"
+            className="flex-1 p-3 bg-transparent border border-gold rounded-lg text-white outline-none placeholder-gold"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Bzzz... Ask me anything!"
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           />
           <button
-            className="p-3 bg-gold rounded-full shadow-lg hover:scale-105"
+            className="p-4 bg-gold rounded-full shadow-lg hover:scale-110"
             onClick={sendMessage}
             disabled={loading}
           >
-            <Send size={24} color="black" />
+            <Send size={28} color="black" />
           </button>
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-4 mt-4">
-        <a href="#" className="text-gold hover:underline">X</a>
-        <a href="#" className="text-gold hover:underline">TG</a>
-        <a href="#" className="text-gold hover:underline">GitHub</a>
-        <a href="#" className="text-gold hover:underline">Home</a>
+      <div className="flex gap-6 mt-6">
+        <a href="#" className="px-6 py-2 bg-gold text-black rounded-lg font-bold shadow-md hover:bg-yellow-500 transition-all">X</a>
+        <a href="#" className="px-6 py-2 bg-gold text-black rounded-lg font-bold shadow-md hover:bg-yellow-500 transition-all">TG</a>
+        <a href="#" className="px-6 py-2 bg-gold text-black rounded-lg font-bold shadow-md hover:bg-yellow-500 transition-all">GitHub</a>
+        <a href="#" className="px-6 py-2 bg-gold text-black rounded-lg font-bold shadow-md hover:bg-yellow-500 transition-all">Home</a>
       </div>
     </div>
   );
