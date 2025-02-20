@@ -8,7 +8,7 @@ export default function BeeChatbot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
-  const inputRef = useRef(null);
+  const inputRef = useRef(null); // ✅ Ensures input field focus
 
   // 🟡 Load messages from localStorage on first render
   useEffect(() => {
@@ -21,14 +21,27 @@ export default function BeeChatbot() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // ✅ Auto-focus input field after sending a message
+  useEffect(() => {
+    if (!loading) {
+      inputRef.current?.focus();
+    }
+  }, [loading]);
+
   const sendMessage = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || loading) return;
 
     const userMessage = { role: "user", text: input };
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInput("");
     setLoading(true);
+
+    // Show thinking animation
+    setMessages((prev) => [
+      ...prev,
+      { role: "bot", text: "Bzzz... Thinking 🤔🐝", thinking: true },
+    ]);
 
     try {
       const response = await fetch("/api/chat", {
@@ -38,16 +51,20 @@ export default function BeeChatbot() {
       });
 
       const data = await response.json();
-      const botMessage = { role: "bot", text: data.reply };
 
-      const newMessages = [...updatedMessages, botMessage];
-      setMessages(newMessages);
+      // Remove "thinking" animation and add bot's actual response
+      setMessages((prev) => [
+        ...prev.slice(0, -1), // Remove last "thinking" message
+        { role: "bot", text: data.reply },
+      ]);
 
       // 📝 Save messages in localStorage to retain memory
-      localStorage.setItem("chatHistory", JSON.stringify(newMessages));
+      localStorage.setItem("chatHistory", JSON.stringify(updatedMessages));
     } catch (error) {
-      const errorMessage = { role: "bot", text: "Bzzz... Something went wrong! 🐝" };
-      setMessages((prev) => [...prev, errorMessage]);
+      setMessages((prev) => [
+        ...prev.slice(0, -1), // Remove thinking animation
+        { role: "bot", text: "Bzzz... Something went wrong! 🐝" },
+      ]);
     }
 
     setLoading(false);
@@ -84,6 +101,9 @@ export default function BeeChatbot() {
             <div key={index} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
               <div className={`p-4 rounded-2xl max-w-full text-black ${msg.role === "user" ? "bg-yellow-500 bg-opacity-90 shadow-md border-2 border-yellow-700" : "bg-yellow-400 bg-opacity-90 shadow-md border-2 border-yellow-800"}`}>
                 {msg.text}
+                {msg.thinking && (
+                  <span className="ml-2 animate-pulse text-yellow-800">⏳</span>
+                )}
               </div>
             </div>
           ))}
@@ -93,19 +113,24 @@ export default function BeeChatbot() {
         {/* ✍ Input Box */}
         <div className="flex gap-4 p-4 bg-yellow-300 bg-opacity-80 rounded-b-lg border-t-2 border-yellow-600 w-full">
           <input
-            ref={inputRef}
+            ref={inputRef} // ✅ Ensures input is focused
             className="flex-1 p-3 bg-transparent border border-yellow-600 rounded-lg text-black outline-none placeholder-yellow-700"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Bzzz... Ask me anything!"
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            disabled={loading}
           />
           <button
             className="p-4 bg-yellow-500 rounded-full shadow-lg hover:scale-110 border-2 border-yellow-700"
             onClick={sendMessage}
             disabled={loading}
           >
-            <Send size={28} color="black" />
+            {loading ? (
+              <div className="animate-spin h-6 w-6 border-t-2 border-black rounded-full"></div>
+            ) : (
+              <Send size={28} color="black" />
+            )}
           </button>
         </div>
       </div>
